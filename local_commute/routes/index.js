@@ -43,6 +43,7 @@ router.post('/', function(req, res, next) {
 router.put('/user/:userId', function(req, res, next) {
   User.updateByUserId(req.params.userId, req.body)
   .then((user)=>{
+    console.log(user);
     res.send(user);
   })
   .catch(err => res.status(500).send(err));
