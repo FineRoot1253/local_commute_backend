@@ -1,6 +1,6 @@
 let express = require('express');
 let router = express.Router();
-let User = require('../dao/model');
+let User = require('../dao/user_model');
 
 
 
@@ -16,6 +16,7 @@ router.get('/', function(req, res, next) {
     return res.status(500).send(err);
   });
 });
+
 
 router.get('/user/:userId', function(req, res, next) {
   console.log(req.params);
