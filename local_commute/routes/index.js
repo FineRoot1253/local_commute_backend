@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let User = require('../dao/user_model');
+let OutSideWorkData = require('../dao/outsidework_model');
 
 
 
@@ -31,6 +32,24 @@ router.get('/user/:userId', function(req, res, next) {
     return res.status(500).send(err);
   });
 });
+
+
+router.get('/outside/:userId', function(req, res, next){
+
+  console.log(req.params);
+  OutSideWorkData.findOneByUserId(req.params.userId).then((data)=>{
+    console.log(data);
+    if(!data) return res.status(404).send({err: 'OutSideWorkData Not Found'});
+    res.send(data);
+  }).catch((err)=>{
+    console.log(data);
+    return res.status(500).send(err);
+  })
+});
+
+
+
+
 
 router.post('/', function(req, res, next) {
   User.create(req.body)
