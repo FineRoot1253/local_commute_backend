@@ -4,7 +4,6 @@ let User = require('../dao/user_model');
 let OutSideWorkData = require('../dao/outsidework_model');
 
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   User.findAll()

@@ -3,9 +3,8 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     userId: { type: String, required: true, unique: true },
     userNm: { type: String, required: true },
-    userState: {
-        type: String, required: true,
-        enum:['onWork','beforeWork','workOnOutside','returnToWork']
+    state: {
+        type: Number, required: true,
     },
 }, {
     timestamps: true
