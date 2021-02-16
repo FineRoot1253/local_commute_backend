@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     userId: { type: String, required: true, unique: true },
     userNm: { type: String, required: true },
-    state: {
-        type: Number, required: true,
-    },
+    state: {type: Number, required: true},
+    onWorkTime:{type: Date, default: Date.now()},
+    offWorkTime:{type: Date, default: Date.now()},
 }, {
     timestamps: true
 });

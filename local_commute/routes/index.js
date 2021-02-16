@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let User = require('../dao/user_model');
 let OutSideWorkData = require('../dao/outsidework_model');
+let OutOfRangeUser = require('../dao/out_of_range_user_model');
 
 
 /* GET home page. */
@@ -46,11 +47,29 @@ router.get('/outside/:userId', function(req, res, next){
   })
 });
 
+router.post('/outside', function(req, res, next) {
+  OutSideWorkData.create(req.body)
+  .then((user)=>res.sendStatus(200))
+  .catch((err) => {
+    console.log(err);
+    return res.status(500).send(err);
+  });
+});
+
+router.put('/outside/:userId', function(req, res, next) {
+  OutSideWorkData.updateByUserId(req.params.userId, req.body)
+  .then((user)=>{
+    console.log(user);
+    res.send(user);
+  })
+  .catch(err => res.status(500).send(err));
+});
 
 
 
 
-router.post('/', function(req, res, next) {
+
+router.post('/user', function(req, res, next) {
   User.create(req.body)
   .then((user)=>res.sendStatus(200))
   .catch((err) => {
@@ -72,6 +91,19 @@ router.delete('/user/:userId', function(req, res, next) {
   User.deleteByUserId(req.params.userId)
   .then((user)=>res.sendStatus(200))
   .catch(err => res.status(500).send(err));
+});
+
+router.post('/oor',
+function(req, res, next) {
+  OutOfRangeUser.create(req.body)
+  .then((user)=>{
+    console.log(user);
+    res.sendStatus(200);
+  })
+  .catch((err) => {
+    console.log(err);
+    return res.status(500).send(err);
+  });
 });
 
 module.exports = router;
