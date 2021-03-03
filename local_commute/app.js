@@ -19,19 +19,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-var indexRouter = require('./routes/index');
+let userRouter = require('./routes/user/index');
+let outsideRouter = require('./routes/outside/index');
+let outofrangeRouter = require('./routes/outofrange/index');
 
 
-var uri = "mongodb://localhost:27017/kennel";
 
-mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true });
-
-const connection = mongoose.connection;
-
-connection.once("open", function() {
-  console.log("MongoDB database connection established successfully");
-});
-app.use('/', indexRouter);
+app.use('/user', userRouter);
+app.use('/outside', outsideRouter);
+app.use('/oor', outofrangeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
