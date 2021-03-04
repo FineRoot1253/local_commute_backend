@@ -1,11 +1,15 @@
-const UserOutside = require("../../model/outsidework_model");
+const UserOutside = require("../../models").outsidework;
 
 const createUserOutsideData = async (req, res ,next) => {
     let {userId, dest} = req.body;
 
-    s
+    const result = await UserOutside.create({
+        userId,
+        dest
+    });
 
-    next();
+
+    return res.send(result.dataValues);
 
 }
 

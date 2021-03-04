@@ -1,24 +1,22 @@
-const User = require("../../model/user_model");
+const User = require("../../models").user;
 
 const createUser = async (req, res ,next) => {
     let {
         userId,
-        userName,
+        userName = req.body.userNm,
         state,
         onWorkTime,
         offWorkTime
     } = req.body;
 
-    await User.create({
+    const result = await User.create({
         userId,
         userName,
         state,
         onWorkTime,
         offWorkTime
     });
-
-    next();
-
+    return res.send(result.dataValues);
 }
 
 module.exports = createUser;

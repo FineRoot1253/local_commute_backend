@@ -1,4 +1,4 @@
-const UserOutside = require("../../model/outsidework_model");
+const UserOutside = require("../../models").outsidework;
 
 const checkUserOutsideData = async (req, res ,next) => {
     let userId = req.params.userId;
@@ -14,7 +14,7 @@ const checkUserOutsideData = async (req, res ,next) => {
         return;
     }
     
-    return res.send(userResult);
+    return res.send(userResult.dataValues);
 }
 
 module.exports = checkUserOutsideData;

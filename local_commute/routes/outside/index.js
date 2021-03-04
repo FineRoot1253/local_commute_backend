@@ -7,12 +7,12 @@ const updateUserOutsideData = require("../../lib/outside/updateUserOutsideData")
 var router = express.Router();
 
 
-router.get('/outside/:userId', checkUserOutsideData);
+router.get('/:userId', checkUserOutsideData);
 //req.params.userId  
 
-router.post('/outside', createUserOutsideData, checkUserOutsideData);
+router.post('/', createUserOutsideData);
 //req.body  
 
-router.put('/outside/:userId', updateUserOutsideData, checkUserOutsideData);
+router.put('/:userId', updateUserOutsideData, checkUserOutsideData);
 //req.params.userId, req.body
 module.exports = router;

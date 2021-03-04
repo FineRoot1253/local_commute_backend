@@ -1,4 +1,4 @@
-const User = require("../../model/user_model");
+const User = require("../../models").user;
 
 const deleteUser = async (req, res ,next) => {
     let userId = req.params.userId;

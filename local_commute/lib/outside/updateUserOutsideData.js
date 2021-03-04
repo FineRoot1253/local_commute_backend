@@ -1,4 +1,4 @@
-const UserOutside = require("../../model/outsidework_model");
+const UserOutside = require("../../models").outsidework;
 
 const updateUserOutsideData = async (req, res ,next) => {
     let {userId, dest} = req.body;

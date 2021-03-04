@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes){
             allowNull: false,
         },
         state:{
-            type: DataTypes.INT,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         onWorkTime:{

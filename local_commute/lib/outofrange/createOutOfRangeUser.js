@@ -1,4 +1,4 @@
-const OutOfRangeUser = require("../../model/out_of_range_user_model");
+const OutOfRangeUser = require("../../models").outofrangeuser;
 
 const createOutOfRangeUser = async (req, res ,next) => {
     
@@ -15,7 +15,7 @@ const createOutOfRangeUser = async (req, res ,next) => {
         return;
     }
 
-    return res.send(userResult);
+    return res.send(userResult.dataValues);
 
 }
 

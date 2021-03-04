@@ -1,4 +1,4 @@
-const User = require("../../model/user_model");
+const User = require("../../models").user;
 
 const checkUser = async (req, res ,next) => {
     const userId = req.params.userId;
@@ -13,8 +13,7 @@ const checkUser = async (req, res ,next) => {
         res.status(401).end();
         return;
     }
-
-    return res.send(userResult);
+    return res.send(userResult.dataValues);
 }
 
 
