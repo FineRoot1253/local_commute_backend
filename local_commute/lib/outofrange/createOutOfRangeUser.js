@@ -2,6 +2,8 @@ const OutOfRangeUser = require("../../models").outofrangeuser;
 
 const createOutOfRangeUser = async (req, res ,next) => {
     
+    let userId = req.body;
+
     await OutOfRangeUser.create({userId});
     
     let userResult = await OutOfRangeUser.findAll({
