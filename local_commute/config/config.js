@@ -12,4 +12,12 @@ module.exports = {
   port: process.env.DB_PORT,
   database: process.env.DB_SCHEMA_NAME,
   dialect: "mysql",
+  refreshToken: {//60 * 60 * 30
+    expiresIn: 60 * 60 * 30,
+    calculateExpirationDate: () => new Date(Date.now() + (60 * 60 * 30 * 1000))
+  },
+  accessToken: { //60 * 30
+    expiresIn: 60 * 30,
+    calculateExpirationDate: () => new Date(Date.now() + (60 * 30 * 1000))
+  }
 };

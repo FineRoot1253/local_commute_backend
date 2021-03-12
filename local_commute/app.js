@@ -4,7 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
-
+const passport= require('passport');
+const validator = require('./lib/util/validate');
 const app = express();
 
 // view engine setup
@@ -20,17 +21,24 @@ let userRouter = require('./routes/user/index');
 let outsideRouter = require('./routes/outside/index');
 let outofrangeRouter = require('./routes/outofrange/index');
 let authRouter = require('./routes/auth/index');
-
+let apiRouter = require('./routes/api/index');
+let redisClient = require('./lib/util/redis').redisClient;
 
 app.use(session({
   secret: '123123newzen',
-  resave : false,
-  saveUninitialized : true
+  resave : true,
+  saveUninitialized : true,
 }));
-let ranNum = (+new Date).toString(36);
-console.log(ranNum);
+redisClient.on('error', function (err) {
+  console.log('Error ' + err);
+});
+app.use(passport.initialize());
+app.use(passport.session());
+//let ranNum = (+new Date).toString(36);
 
-app.use('/auth',authRouter)
+app.use(validator.verifyLoggined);
+app.use('/api', apiRouter);
+app.use('/auth',authRouter);
 app.use('/user', userRouter);
 app.use('/outside', outsideRouter);
 app.use('/oor', outofrangeRouter);
@@ -52,8 +60,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-
-
-
-//1614837278085
-//1614837520436

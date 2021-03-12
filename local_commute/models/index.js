@@ -5,8 +5,6 @@ const basename = path.basename(__filename);
 const config = require("../config/config");
 const db = {};
 
-console.log(config);
-
 const sequelize = new Sequelize({
   host: config.host,
   username: config.username,

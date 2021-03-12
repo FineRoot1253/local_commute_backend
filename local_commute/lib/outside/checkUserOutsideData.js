@@ -1,5 +1,8 @@
 const UserOutside = require("../../models").outsidework;
 
+/**
+ * [resource 서버 전용] 유저 외근 데이터 조회
+ */
 const checkUserOutsideData = async (req, res ,next) => {
     let userId = req.params.userId;
 
