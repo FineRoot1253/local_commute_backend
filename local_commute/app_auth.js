@@ -33,7 +33,7 @@ app_auth.use(passport.initialize());
 app_auth.use(passport.session());
 //let ranNum = (+new Date).toString(36);
 
-app_auth.use('/auth',authRouter)
+app_auth.use('/auth',authRouter);
 app_auth.use('/user', userRouter);
 
 // catch 404 and forward to error handler

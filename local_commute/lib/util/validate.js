@@ -15,6 +15,7 @@ validator.verifyACTK = async (tokenInfo, accessToken) => {
     try{
         utils.verifyTK(accessToken);
     }catch(err){
+        console.log('refresh req');
         throw Error('NEED REFRESH');
     }
     const user =  await User.findOne({
@@ -66,9 +67,13 @@ validator.verifyTKs = async (accessToken, refreshToken) => {
 
 /**
  * [resource 서버 전용] resource 서버 모든 엔드포인트 앞에 들어감, 
- *  api 요청의 엑세스 토큰을 검증해 유저의 권한검증
+ *  api 요청의 엑세스 토큰을 검증해 유저의 권한검증ß
  */
- validator.verifyLoggined = passport.authenticate('bearer', 
-    {successRedirect: '/', failureRedirect: '/api/verifyFailed' });
+ validator.verifyLoggined = [
+     passport.authenticate('bearer'),
+     (req,res,next) =>{
+         next();
+     }
+    ]
 
 module.exports = validator;

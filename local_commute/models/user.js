@@ -20,18 +20,10 @@ module.exports = function(sequelize, DataTypes){
         state:{
             type: DataTypes.INTEGER,
             allowNull: false,
-        },
-        onWorkTime:{
-            type: DataTypes.DATE,
-            allowNull: false,
-        },
-        offWorkTime:{
-            type: DataTypes.DATE,
-            allowNull: false,
-        },
+        }
     },
     {
         tableName : 'user',
-        timestamps : true
+        timestamps : false
     });
 } 

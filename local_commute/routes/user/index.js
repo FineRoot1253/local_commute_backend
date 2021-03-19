@@ -1,5 +1,6 @@
 var express = require("express");
 const readUser = require("../../lib/user/readUser").readUser;
+const readUserLogList = require('../../lib/user/readUserLogList').readUserLogList;
 const createUser = require("../../lib/user/createUser");
 const updateUser = require("../../lib/user/updateUser");
 const deleteUser = require("../../lib/user/deleteUser");
@@ -10,6 +11,10 @@ var router = express.Router();
 
 // 유저정보 읽기
 router.get('/:userId', readUser);
+//req.params.userId
+
+// 유저정보 읽기
+router.get('/getLogList/:userId&:startDate&:endDate', readUserLogList);
 //req.params.userId
 
 // 가입 전 유저 체크

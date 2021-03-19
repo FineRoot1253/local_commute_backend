@@ -37,8 +37,10 @@ app.use(passport.session());
 //let ranNum = (+new Date).toString(36);
 
 app.use(validator.verifyLoggined);
-app.use('/api', apiRouter);
+
+
 app.use('/auth',authRouter);
+app.use('/api', apiRouter);
 app.use('/user', userRouter);
 app.use('/outside', outsideRouter);
 app.use('/oor', outofrangeRouter);

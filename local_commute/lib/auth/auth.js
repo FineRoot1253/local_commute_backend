@@ -35,8 +35,10 @@ passport.use(new BearerStrategy(async (accessToken, done) => {
         console.log('토큰 권한 인증 검색');
         let userResult;
         const tokenInfo = await token.findOne(accessToken);
-        console.log(`검증시작 : ${tokenInfo}`);
+        console.log(`검증시작 : `);
+        // console.dir(tokenInfo);
         userResult = await validate.verifyACTK(tokenInfo, accessToken);
+        console.log('토큰 인증 성공!');
         done(null, userResult);
     } catch (err) {
         let beforeSending = err.toString().split(':')[1].trim();
