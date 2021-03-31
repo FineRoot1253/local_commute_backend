@@ -6,6 +6,7 @@ const logger = require('morgan');
 const session = require('express-session');
 const passport= require('passport');
 const validator = require('./lib/util/validate');
+const cors = require('cors');
 const app = express();
 
 // view engine setup
@@ -23,11 +24,16 @@ let outofrangeRouter = require('./routes/outofrange/index');
 let authRouter = require('./routes/auth/index');
 let apiRouter = require('./routes/api/index');
 let redisClient = require('./lib/util/redis').redisClient;
-
+app.use(cors({origin: true,credentials: true}));
 app.use(session({
   secret: '123123newzen',
   resave : true,
   saveUninitialized : true,
+  cookie : {
+    secure : false,
+    httpOnly : true,
+    maxAge : 3600000
+  }
 }));
 redisClient.on('error', function (err) {
   console.log('Error ' + err);

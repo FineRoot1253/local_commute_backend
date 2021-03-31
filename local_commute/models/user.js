@@ -20,6 +20,14 @@ module.exports = function(sequelize, DataTypes){
         state:{
             type: DataTypes.INTEGER,
             allowNull: false,
+        },
+        comp_id: {
+            type: DataTypes.STRING(8),
+            allowNull: true,
+            references: {
+                model: 'comp',
+                key: 'user_comp_Id'
+            }
         }
     },
     {

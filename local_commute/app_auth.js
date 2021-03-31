@@ -7,6 +7,7 @@ const session = require('express-session');
 const passport= require('passport');
 const validator = require('./lib/util/validate'); 
 const flash = require('connect-flash'); 
+const cors = require('cors');
 const app_auth = express();
 
 // view engine setup
@@ -18,7 +19,7 @@ app_auth.use(express.json());
 app_auth.use(express.urlencoded({ extended: false }));
 app_auth.use(cookieParser());
 app_auth.use(express.static(path.join(__dirname, 'public')));
-
+app_auth.use(cors({origin: true,credentials: true}));
 app_auth.use(flash());
 let userRouter = require('./routes/user/index');
 let authRouter = require('./routes/auth/index');
@@ -27,6 +28,11 @@ app_auth.use(session({
   secret: '123123newzen',
   resave : true,
   saveUninitialized : true,
+  cookie : {
+    secure : false,
+    httpOnly : true,
+    maxAge : 3600000
+  }
 }));
 
 app_auth.use(passport.initialize());

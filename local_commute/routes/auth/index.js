@@ -12,9 +12,9 @@ var router = express.Router();
 // 유저 최초 로그인(Basic Login)
 router.get('/initLogin',
     passport.authenticate('basic', 
-    {successRedirect: '/auth/login/successed', failureRedirect: '/auth/login/failed' }),
+    {successRedirect: '/auth/login/successed', failureRedirect: '/auth/login/failed', session: true }),
 );
-
+      
 // 유저 토큰 로그인(Bearer Login, 자동 로그인 기능)
 router.get('/tokenLogin',
     passport.authenticate('bearer', 

@@ -14,16 +14,24 @@ const User = require("../../models").user;
  * 유저 최초 로그인 (Basic Auth)
  */
 passport.use(new BasicStrategy(async (email_addr, password, done) => {
-
+    console.log(email_addr);
+    console.log(password);
     const userResult = await User.findOne({
         where: {
             email_addr: email_addr
         }
     });
-
-    if (!userResult) done(null, false);
-    else if (!bcrypt.compareSync(password, userResult.dataValues.userPwd)) done(null, false);
-    else done(null, userResult.dataValues);
+    console.log('전송결과 : ', userResult.dataValues);
+    if (!userResult) {
+        console.log("DB조회 실패");
+        done(null, false);
+    } else if (!bcrypt.compareSync(password, userResult.dataValues.userPwd)) {
+        console.log("패스워드 불일치");
+        done(null, false);
+    } else {        
+        console.log("패스워드 일치");
+        done(null, userResult.dataValues);
+    }
 }));
 
 /**
@@ -54,6 +62,7 @@ passport.use(new BearerStrategy(async (accessToken, done) => {
  * 세션(req.session.user) 세팅
  */
 passport.serializeUser((user, done) => {
+    console.log('인증 성공!',user.email_addr);
     done(null, user.email_addr);
 });
 
@@ -63,12 +72,13 @@ passport.serializeUser((user, done) => {
  * 유저DB를 매번 조회해 세션에 저장하게 됨,
  */
 passport.deserializeUser(async (email_addr, done) => {
-
+    console.log('로그인 성공!');
     let user = await User.findOne({
         where: {
             email_addr: email_addr
         }
     });
+    console.log('조회결과', user);
     if (!user) done(err);
     else done(null, user);
 });
@@ -77,30 +87,30 @@ passport.deserializeUser(async (email_addr, done) => {
  * [authorization 서버 전용] 엑세스 토큰 재생성 요청 경로
  */
 const refreshToken = async (req, res, next) => {
-try{
-    var tok = {};
+    try {
+        var tok = {};
 
-    let refreshToken = req.body.refreshToken;
-    let tokenInfo;
-    let resultVerifiy;
+        let refreshToken = req.body.refreshToken;
+        let tokenInfo;
+        let resultVerifiy;
 
-    tokenInfo = await token.findOne(refreshToken);
+        tokenInfo = await token.findOne(refreshToken);
 
-    resultVerifiy = validate.verifyRFTK(tokenInfo, refreshToken);
+        resultVerifiy = validate.verifyRFTK(tokenInfo, refreshToken);
 
-    let accessToken = await token.generateACToken(resultVerifiy.email_addr);
-    
-    tok.access_token = accessToken;
-    tok.refresh_token = refreshToken;
+        let accessToken = await token.generateACToken(resultVerifiy.email_addr);
 
-    var json = JSON.stringify(tok);
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Cache-Control', 'no-store');
-    res.setHeader('Pragma', 'no-cache');
-    return res.json(json);
-}catch(err){
-    return res.status(401).send('NEED BASIC LOGIN');
-}
+        tok.access_token = accessToken;
+        tok.refresh_token = refreshToken;
+
+        var json = JSON.stringify(tok);
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Cache-Control', 'no-store');
+        res.setHeader('Pragma', 'no-cache');
+        return res.json(json);
+    } catch (err) {
+        return res.status(401).send('NEED BASIC LOGIN');
+    }
 
 }
 
@@ -108,6 +118,8 @@ try{
  * [authorization 서버 전용] Basic 로그인 성공시 경로
  */
 const loginSuccess = async (req, res, next) => {
+    // console.log('세션 조회',req.session);
+    // console.log('user 조회',this.session.passport.user);
     let tokens = await token.generateTokens(req.user.email_addr);
     var tok = {};
     tok.access_token = tokens[0];
@@ -133,7 +145,7 @@ const loginFailed = (req, res, next) => {
 const logout = async (req, res, next) => {
     let { accessToken, refreshToken } = req.body;
     token.revokeTokens(accessToken, refreshToken);
-    req.session=null;
+    req.session = null;
     req.logout();
 
     return res.sendStatus(200);

@@ -15,8 +15,7 @@ const createUser = async (req, res ,next) => {
         userName = req.session.user.userNm,
         email_addr,
         state,
-        onWorkTime,
-        offWorkTime
+        comp_id
     } = req.session.user;
     let userPwd = encrypt(req.session.user.userPwd);
     //Create
@@ -26,8 +25,7 @@ const createUser = async (req, res ,next) => {
         userPwd,
         email_addr,
         state,
-        onWorkTime,
-        offWorkTime
+        comp_id
     });
     /**
      * TODO : find accessToken, need to create if not exists
