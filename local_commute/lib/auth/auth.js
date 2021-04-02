@@ -18,10 +18,10 @@ passport.use(new BasicStrategy(async (email_addr, password, done) => {
     console.log(password);
     const userResult = await User.findOne({
         where: {
-            email_addr: email_addr
+            userId: email_addr
         }
     });
-    console.log('전송결과 : ', userResult.dataValues);
+    console.log('전송결과 : ', userResult);
     if (!userResult) {
         console.log("DB조회 실패");
         done(null, false);
@@ -107,7 +107,7 @@ const refreshToken = async (req, res, next) => {
         res.setHeader('Content-Type', 'application/json');
         res.setHeader('Cache-Control', 'no-store');
         res.setHeader('Pragma', 'no-cache');
-        return res.json(json);
+        return res.send(tok);
     } catch (err) {
         return res.status(401).send('NEED BASIC LOGIN');
     }
@@ -118,9 +118,9 @@ const refreshToken = async (req, res, next) => {
  * [authorization 서버 전용] Basic 로그인 성공시 경로
  */
 const loginSuccess = async (req, res, next) => {
-    // console.log('세션 조회',req.session);
+    console.log('세션 조회',req.body);
     // console.log('user 조회',this.session.passport.user);
-    let tokens = await token.generateTokens(req.user.email_addr);
+    let tokens = await token.generateTokens(req.body.user.email_addr);
     var tok = {};
     tok.access_token = tokens[0];
     tok.refresh_token = tokens[1];
@@ -129,7 +129,7 @@ const loginSuccess = async (req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Cache-Control', 'no-store');
     res.setHeader('Pragma', 'no-cache');
-    return res.json(json);
+    return res.send(tok);
 };
 
 /**

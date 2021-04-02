@@ -26,10 +26,9 @@ let authRouter = require('./routes/auth/index');
 
 app_auth.use(session({
   secret: '123123newzen',
-  resave : true,
-  saveUninitialized : true,
+  resave : false,
+  saveUninitialized : false,
   cookie : {
-    secure : false,
     httpOnly : true,
     maxAge : 3600000
   }

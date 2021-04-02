@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
 const passport= require('passport');
+const bodyParser= require('body-parser');
 const validator = require('./lib/util/validate');
 const cors = require('cors');
 const app = express();
@@ -27,10 +28,9 @@ let redisClient = require('./lib/util/redis').redisClient;
 app.use(cors({origin: true,credentials: true}));
 app.use(session({
   secret: '123123newzen',
-  resave : true,
-  saveUninitialized : true,
+  resave : false,
+  saveUninitialized : false,
   cookie : {
-    secure : false,
     httpOnly : true,
     maxAge : 3600000
   }
@@ -41,7 +41,11 @@ redisClient.on('error', function (err) {
 app.use(passport.initialize());
 app.use(passport.session());
 //let ranNum = (+new Date).toString(36);
-
+app.use('/',(req,res,next)=>{
+  console.log(req.headers);
+  next();
+});
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator.verifyLoggined);
 
 

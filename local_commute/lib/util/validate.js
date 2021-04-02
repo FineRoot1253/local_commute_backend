@@ -72,6 +72,7 @@ validator.verifyTKs = async (accessToken, refreshToken) => {
  validator.verifyLoggined = [
      passport.authenticate('bearer'),
      (req,res,next) =>{
+         console.log(req.header);
          next();
      }
     ]

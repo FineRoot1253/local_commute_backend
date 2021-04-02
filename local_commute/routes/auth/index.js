@@ -11,21 +11,40 @@ var router = express.Router();
 
 // 유저 최초 로그인(Basic Login)
 router.get('/initLogin',
-    passport.authenticate('basic', 
-    {successRedirect: '/auth/login/successed', failureRedirect: '/auth/login/failed', session: true }),
-);
-      
+    function (req, res, next) {
+        passport.authenticate('basic', function (err, user, info) {
+            console.log("유저 확인 해야징",user);
+            console.log("에러 인포",info)
+            if (err) {
+                res.statusCode(500).send('???');
+            } else if (info) {
+                res.redirect('/auth/login/failed');
+            } else {
+                req.login(user, function (err) {
+                    if (err) {
+                        console.log("에러 인포",err)
+                        res.sendStatus(500);
+                    } else {
+                        console.log("유저 이메일",user.email_addr)
+                        req.body.user=user;
+                        //req.user.email_addr = user.email_addr;
+                        next();
+                    }
+                }
+                )}
+        })(req, res, next);
+},loginSuccess);
 // 유저 토큰 로그인(Bearer Login, 자동 로그인 기능)
 router.get('/tokenLogin',
-    passport.authenticate('bearer', 
-    {successRedirect: '/auth/login/token/successed', failureRedirect: '/auth/login/token/failed' ,failureFlash: true}),
+    passport.authenticate('bearer',
+        { successRedirect: '/auth/login/token/successed', failureRedirect: '/auth/login/token/failed', failureFlash: true }),
 );
 
 // 유저 엑세스 토큰 재생성 요청
 router.post('/token', refreshToken);
 
 // 유저 최초 로그인 성공
-router.get('/login/successed', loginSuccess)
+router.get('/login/successed', loginSuccess);
 
 // 유저 최초 로그인 실패
 router.get('/login/failed', loginFailed);

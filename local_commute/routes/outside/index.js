@@ -15,6 +15,6 @@ router.post('/', createUserOutsideData);
 //req.body  
 
 // 유저 외근 정보 업데이트
-router.put('/:userId', updateUserOutsideData, checkUserOutsideData);
+router.put('/', updateUserOutsideData, checkUserOutsideData);
 //req.params.userId, req.body
 module.exports = router;

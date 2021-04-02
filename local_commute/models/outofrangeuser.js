@@ -3,7 +3,8 @@ module.exports = function(sequelize, DataTypes){
         ooru_Id:{
             type: DataTypes.STRING(100),
             allowNull: false,
-            primaryKey : true
+            primaryKey : true,
+            autoIncrement: true
         },
         userId:{
             type: DataTypes.STRING(100),
@@ -13,10 +14,18 @@ module.exports = function(sequelize, DataTypes){
                 model: 'user',
                 key: 'userId'
             }
+        },        
+        createdAt:{
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
+        updatedAt:{
+            type: DataTypes.DATE,
+            allowNull: true,
         },
     },
     {
         tableName : 'outofrangeuser',
-        timestamps : true
+        timestamps : false
     });
 } 

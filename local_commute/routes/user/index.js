@@ -1,6 +1,7 @@
 var express = require("express");
 const readUser = require("../../lib/user/readUser").readUser;
 const readUserLogList = require('../../lib/user/readUserLogList').readUserLogList;
+const readUserLogData = require('../../lib/user/readUserLogData').readUserLogData;
 const createUser = require("../../lib/user/createUser");
 const updateUser = require("../../lib/user/updateUser");
 const deleteUser = require("../../lib/user/deleteUser");
@@ -18,6 +19,10 @@ router.get('/:userId', readUser);
 router.get('/getLogList/:userId&:startDate&:endDate', readUserLogList);
 //req.params.userId
 
+// 유저 최신근태기록 읽기
+router.get('/getUserLogData/:userId', readUserLogData);
+//req.params.userId
+
 // 가입 전 유저 체크
 router.post('/verify', checkUserVaild, sendEmail);
 //req.body
@@ -31,7 +36,7 @@ router.get('/register/:otp', verifyOTP, createUser);
 router.post('/commute', createUserCommuteLog);
  
 // 유저정보 업데이트
-router.put('/:userId', updateUser, readUser);
+router.put('/', updateUser, readUser);
 //req.params.userId, req.body
 
 ////////////////////////////////////////////
