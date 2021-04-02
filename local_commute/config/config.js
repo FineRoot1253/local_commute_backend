@@ -14,7 +14,7 @@ module.exports = {
   dialect: "mysql",
   refreshToken: {//60 * 60 * 30
     expiresIn: 60 * 60 * 30,
-    calculateExpirationDate: () => new Date(Date.now() + (60 * 60 * 30 * 1000))
+    calculateExpirationDate: () => new Date(Date.now() + (30 * 60 * 60 * 24 * 1000))
   },
   accessToken: { //60 * 30
     expiresIn: 60 * 30,
