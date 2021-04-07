@@ -13,7 +13,7 @@ var router = express.Router();
 router.get('/initLogin',
     function (req, res, next) {
         passport.authenticate('basic', function (err, user, info) {
-            console.log("유저 확인 해야징",user);
+            console.log("유저 확인",user);
             console.log("에러 인포",info)
             if (err) {
                 res.statusCode(500).send('???');
@@ -34,6 +34,13 @@ router.get('/initLogin',
                 )}
         })(req, res, next);
 },loginSuccess);
+
+//퍼미션 체크용
+router.get('/permCheck',
+    function (req, res, next) {
+        return res.send();
+});
+
 // 유저 토큰 로그인(Bearer Login, 자동 로그인 기능)
 router.get('/tokenLogin',
     passport.authenticate('bearer',
