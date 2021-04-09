@@ -7,7 +7,7 @@ const token = require('../util/token');
 const express = require('express-session');
 const validate = require('../util/validate');
 const bcrypt = require('bcrypt');
-const User = require("../../models").user;
+const User = require("../../models").user_full_data;
 
 /**
  * [authorization 서버 전용] Passport 전용, 

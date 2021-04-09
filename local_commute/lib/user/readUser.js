@@ -1,4 +1,4 @@
-const User = require("../../models").user;
+const User = require("../../models").user_full_data;
 
 /**
  * [resource 서버 전용] 유저 데이터 조회
@@ -27,5 +27,7 @@ const findUser = userId => User.findOne({
         userId : userId
     }
 });
+
+
 
 module.exports = {readUser, findUser};

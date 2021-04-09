@@ -1,6 +1,8 @@
 const User = require("../../models").user;
 const bcrypt = require('bcrypt');
 const token = require('../util/token');
+const path = require('path');
+
 
 const createUser = async (req, res ,next) => {
 
@@ -9,9 +11,10 @@ const createUser = async (req, res ,next) => {
         res.status(401).end();
         return;
     }
+    let userID = (+new Date).toString(36).slice(-12);
     //data parsing
     let {
-        userId,
+        userId = userID,
         userName = req.session.user.userNm,
         email_addr,
         state,
@@ -20,12 +23,12 @@ const createUser = async (req, res ,next) => {
     let userPwd = encrypt(req.session.user.userPwd);
     //Create
     const result = await User.create({
-        userId,
+        userId : userID,
         userName,
         userPwd,
         email_addr,
         state,
-        comp_id
+        comp_id : undefined
     });
     /**
      * TODO : find accessToken, need to create if not exists
@@ -47,9 +50,25 @@ const createUser = async (req, res ,next) => {
     if (tokens.length === 2) {
         returnValue.accessToken = tokens[0];
         returnValue.refreshToken = tokens[1]; 
+        console.log("생성후 리턴 예상 값 : ",returnValue);
         return res.send(returnValue);        
     }
     throw new Error('Error User create');
+}
+
+const createUserImage = async (req, res ,next) => {
+
+    const file = req.file
+
+    if (!file) {
+      res.status(500).end();
+      return ;
+    }
+
+    req.body.userProfileImagePath = file.path;
+    if(req.method == "PUT") req.body.updateMode = true;
+
+    next();
 }
 
 function encrypt(text){
@@ -59,4 +78,4 @@ function encrypt(text){
 
 // const same = bcrypt.compareSync(password, encodedPassword)
 
-module.exports = createUser;
+module.exports = {createUser, createUserImage};

@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes){
-    return sequelize.define('user',{
+    return sequelize.define('user_full_data',{
         userId:{
             type: DataTypes.STRING(100),
             allowNull: false,
@@ -36,10 +36,14 @@ module.exports = function(sequelize, DataTypes){
                 model: 'comp',
                 key: 'user_comp_Id'
             }
-        }
+        },
+        comp_name:{
+            type: DataTypes.STRING(50),
+            allowNull: true,
+        },
     },
     {
-        tableName : 'user',
+        tableName : 'user_full_data',
         timestamps : false
     });
 } 
