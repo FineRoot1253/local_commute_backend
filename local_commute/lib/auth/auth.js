@@ -18,7 +18,7 @@ passport.use(new BasicStrategy(async (email_addr, password, done) => {
     console.log(password);
     const userResult = await User.findOne({
         where: {
-            userId: email_addr
+            email_addr: email_addr
         }
     });
     console.log('전송결과 : ', userResult);

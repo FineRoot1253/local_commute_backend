@@ -5,15 +5,14 @@ module.exports = function(sequelize, DataTypes){
             allowNull: false,
             primaryKey : true
         },
-        userId:{
+        user_email_addr:{
             type: DataTypes.STRING(100),
             allowNull: false,
-            primaryKey : true,
             references: {
                 model: 'user',
-                key: 'userId'
+                key: 'email_addr'
             }
-        },
+        }, 
         user_log_time:{
             type: DataTypes.DATE,
             allowNull: true,

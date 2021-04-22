@@ -5,15 +5,16 @@ const Userlogdata = require("../../models").user_worktime_log;
  * [resource 서버 전용] 유저 데이터 조회
  */
 const readUserLogData = async (req, res ,next) => {
-    const userId = req.params.userId;
+    const user_email_addr = req.params.email_addr;
 
     const userlogdata = await Userlogdata.findAll({
         order: [['user_log_idx', 'DESC']],
         limit : 1,
         where : {
-                userId: userId,
+            user_email_addr
         }
     });
+
     if(!userlogdata){
         res.status(401).end();
         return;

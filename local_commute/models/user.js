@@ -1,15 +1,21 @@
 module.exports = function(sequelize, DataTypes){
     return sequelize.define('user',{
-        userId:{
+        email_addr:{
             type: DataTypes.STRING(100),
             allowNull: false,
             primaryKey : true
         },
-        userName:{
-            type: DataTypes.STRING(100),
-            allowNull: false,
+        user_type:{
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue:'0'
         },
-        email_addr:{
+        userId:{
+            type: DataTypes.STRING(100),
+            allowNull: true,
+            defaultValue: null
+        },
+        userName:{
             type: DataTypes.STRING(100),
             allowNull: false,
         },
@@ -24,17 +30,25 @@ module.exports = function(sequelize, DataTypes){
         user_profile_photo:{
             type: DataTypes.STRING(100),
             allowNull: true,
+            defaultValue: null
         },
         user_phone_number:{
             type: DataTypes.STRING(13),
             allowNull: true,
+            defaultValue: null
+        },
+        user_telephone_number:{
+            type: DataTypes.STRING(13),
+            allowNull: true,
+            defaultValue: null
         },
         comp_id: {
-            type: DataTypes.STRING(8),
+            type: DataTypes.STRING(50),
             allowNull: true,
+            defaultValue: null,
             references: {
                 model: 'comp',
-                key: 'user_comp_Id'
+                key: 'comp_Id'
             }
         }
     },

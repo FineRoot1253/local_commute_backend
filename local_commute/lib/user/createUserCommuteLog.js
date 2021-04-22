@@ -4,14 +4,14 @@ const createUserLog = async (req, res ,next) => {
 
     //data parsing
     let {
-        userId,
+        user_email_addr,
         user_log_time = Date.now(),
         log_state
     } = req.body;
 
     //Create
     const result = await Userlog.create({
-        userId,
+        user_email_addr,
         user_log_time ,
         log_state
     });

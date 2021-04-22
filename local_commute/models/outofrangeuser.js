@@ -6,13 +6,12 @@ module.exports = function(sequelize, DataTypes){
             primaryKey : true,
             autoIncrement: true
         },
-        userId:{
+        user_email_addr:{
             type: DataTypes.STRING(100),
             allowNull: false,
-            primaryKey : true,
             references: {
                 model: 'user',
-                key: 'userId'
+                key: 'email_addr'
             }
         },        
         createdAt:{

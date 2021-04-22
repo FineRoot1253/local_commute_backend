@@ -1,14 +1,14 @@
 module.exports = function(sequelize, DataTypes){
     return sequelize.define('user_worktime_list',{
-        userId:{
+        user_email_addr:{
             type: DataTypes.STRING(100),
             allowNull: false,
             primaryKey : true,
             references: {
                 model: 'user',
-                key: 'userId'
+                key: 'email_addr'
             }
-        },
+        }, 
         work_start:{
             type: DataTypes.DATE,
             allowNull: true,

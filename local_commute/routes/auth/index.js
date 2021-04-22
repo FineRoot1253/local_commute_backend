@@ -9,7 +9,7 @@ const passport = require('passport');
 
 var router = express.Router();
 
-// 유저 최초 로그인(Basic Login)
+// 유저 최초 로그인(Basic Login) ok
 router.get('/initLogin',
     function (req, res, next) {
         passport.authenticate('basic', function (err, user, info) {
@@ -35,34 +35,34 @@ router.get('/initLogin',
         })(req, res, next);
 },loginSuccess);
 
-//퍼미션 체크용
+//퍼미션 체크용 ok
 router.get('/permCheck',
     function (req, res, next) {
         return res.send();
 });
 
-// 유저 토큰 로그인(Bearer Login, 자동 로그인 기능)
+// 유저 토큰 로그인(Bearer Login, 자동 로그인 기능) ok
 router.get('/tokenLogin',
     passport.authenticate('bearer',
         { successRedirect: '/auth/login/token/successed', failureRedirect: '/auth/login/token/failed', failureFlash: true }),
 );
 
-// 유저 엑세스 토큰 재생성 요청
+// 유저 엑세스 토큰 재생성 요청 ok
 router.post('/token', refreshToken);
 
-// 유저 최초 로그인 성공
+// 유저 최초 로그인 성공 ok
 router.get('/login/successed', loginSuccess);
 
-// 유저 최초 로그인 실패
+// 유저 최초 로그인 실패 ok
 router.get('/login/failed', loginFailed);
 
-// 유저 토큰 로그인 성공
+// 유저 토큰 로그인 성공 ok
 router.get('/login/token/successed', tokenLoginSuccess)
 
-// 유저 토큰 로그인 실패
+// 유저 토큰 로그인 실패 ok
 router.get('/login/token/failed', tokenLoginFailed);
 
-// 유저 로그아웃
+// 유저 로그아웃 ok
 router.post('/logout', logout);
 
 module.exports = router;

@@ -2,12 +2,12 @@ const OutOfRangeUser = require("../../models").outofrangeuser;
 
 const createOutOfRangeUser = async (req, res ,next) => {
     console.log(req.body);
-    let userId = req.body.userId;
+    let user_email_addr = req.body.email_addr;
 
-    await OutOfRangeUser.create({userId});
+    await OutOfRangeUser.create({user_email_addr});
     
     let userResult = await OutOfRangeUser.findAll({
-        attributes:['userId'],
+        attributes:['user_email_addr'],
         order:[['ooru_Id','desc']],
         limit:1
     });

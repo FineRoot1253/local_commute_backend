@@ -6,27 +6,21 @@ const path = require('path');
 
 const createUser = async (req, res ,next) => {
 
-    //session validate
-    if(!req.session.user){
-        res.status(401).end();
-        return;
-    }
-    let userID = (+new Date).toString(36).slice(-12);
-    //data parsing
-    let {
-        userId = userID,
-        userName = req.session.user.userNm,
+
+   let {
         email_addr,
-        state,
-        comp_id
-    } = req.session.user;
-    let userPwd = encrypt(req.session.user.userPwd);
+        user_type,
+        userName = req.body.userNm,
+        userPwd,
+        state
+    } = req.body;
+    let userPwd_after_encrypt = encrypt(userPwd);
     //Create
     const result = await User.create({
-        userId : userID,
-        userName,
-        userPwd,
         email_addr,
+        user_type,
+        userName,
+        userPwd : userPwd_after_encrypt,
         state,
         comp_id : undefined
     });
@@ -43,17 +37,21 @@ const createUser = async (req, res ,next) => {
         res.status(401).end();
         return;
     }
+
     if (tokens.length === 1) {
         res.status(401).end();
         return;
     }
+
     if (tokens.length === 2) {
         returnValue.accessToken = tokens[0];
         returnValue.refreshToken = tokens[1]; 
         console.log("생성후 리턴 예상 값 : ",returnValue);
         return res.send(returnValue);        
     }
+
     throw new Error('Error User create');
+
 }
 
 const createUserImage = async (req, res ,next) => {

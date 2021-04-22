@@ -5,13 +5,13 @@ const Userloglist = require("../../models").user_worktime_list;
  * [resource 서버 전용] 유저 데이터 조회
  */
 const readUserLogList = async (req, res ,next) => {
-    const userId = req.params.userId;
+    const user_email_addr = req.params.email_addr;
     const startDate = req.params.startDate;
     const endDate = req.params.endDate;
 
     const userloglist = await Userloglist.findAll({
         where : {
-                userId: userId,
+            user_email_addr,
                 [Op.or] : {
                     work_start: {[Op.between] : [Date.parse(startDate), Date.parse(endDate)]},
                     work_end: {[Op.between] : [Date.parse(startDate), Date.parse(endDate)]},
@@ -26,9 +26,9 @@ const readUserLogList = async (req, res ,next) => {
     return res.json(userloglist);
 }
 
-const findUser = userId => User.findOne({
+const findUser = email_addr => User.findOne({
     where : {
-        userId : userId
+        email_addr
     }
 });
 

@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes){
     return sequelize.define('comp',{
         comp_Id:{
-            type: DataTypes.STRING(8),
+            type: DataTypes.STRING(50),
             allowNull: false,
             primaryKey : true
         },
@@ -9,9 +9,18 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.STRING(50),
             allowNull: true,
         },
-        comp_admin_userId:{
+        comp_admin_email_addr:{
             type: DataTypes.STRING(100),
             allowNull: true,
+            references: {
+                model: 'user',
+                key: 'email_addr'
+            }
+        },        
+        comp_state:{
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue:'0'
         },
     },
     {

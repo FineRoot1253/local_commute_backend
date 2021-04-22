@@ -4,9 +4,9 @@ const UserOutside = require("../../models").outsidework;
  * [resource 서버 전용] 유저 외근 데이터 업데이트
  */
 const updateUserOutsideData = async (req, res ,next) => {
-    let {userId, dest} = req.body;
+    let {email_addr, dest} = req.body;
     let userResult = await UserOutside.findAll({
-        attributes:['userId','dest'],
+        attributes:['user_email_addr','dest'],
         order:[['osw_Id','desc']],
         limit:1
     });
@@ -18,7 +18,7 @@ const updateUserOutsideData = async (req, res ,next) => {
     
     await UserOutside.update({
         dest:dest
-    },{where: {userId: userId}});
+    },{where: {user_email_addr: email_addr}});
 
     next();
 }

@@ -1,15 +1,20 @@
 module.exports = function(sequelize, DataTypes){
     return sequelize.define('user_full_data',{
-        userId:{
+        email_addr:{
             type: DataTypes.STRING(100),
             allowNull: false,
             primaryKey : true
         },
-        userName:{
+        userId:{
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: false
         },
-        email_addr:{
+        user_type:{
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue:'0'
+        },
+        userName:{
             type: DataTypes.STRING(100),
             allowNull: false,
         },
@@ -26,6 +31,10 @@ module.exports = function(sequelize, DataTypes){
             allowNull: true,
         },
         user_phone_number:{
+            type: DataTypes.STRING(13),
+            allowNull: true,
+        },
+        user_telephone_number:{
             type: DataTypes.STRING(13),
             allowNull: true,
         },

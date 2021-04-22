@@ -1,20 +1,19 @@
 module.exports = function(sequelize, DataTypes){
-    return sequelize.define('user_worktime_log',{
+    return sequelize.define('user_worktime_start',{
         user_log_idx:{
             type: DataTypes.BIGINT(20),
             allowNull: false,
             primaryKey : true,
             autoIncrement: true,
         },
-        userId:{
+        user_email_addr:{
             type: DataTypes.STRING(100),
             allowNull: false,
-            primaryKey : true,
             references: {
                 model: 'user',
-                key: 'userId'
+                key: 'email_addr'
             }
-        },
+        }, 
         user_log_time:{
             type: DataTypes.DATE,
             allowNull: true,
@@ -26,7 +25,7 @@ module.exports = function(sequelize, DataTypes){
         },
     },
     {
-        tableName : 'user_worktime_log',
+        tableName : 'user_worktime_start',
         timestamps : false
     });
 } 

@@ -6,15 +6,15 @@ const updateUserOutsideData = require("../../lib/outside/updateUserOutsideData")
 
 var router = express.Router();
 
-// 유저 외근 정보 조회
-router.get('/:userId', checkUserOutsideData);
+// 유저 외근 정보 조회 ok
+router.get('/:email_addr', checkUserOutsideData);
 //req.params.userId  
 
-// 유저 외근 정보 생성
+// 유저 외근 정보 생성 ok
 router.post('/', createUserOutsideData);
 //req.body  
 
-// 유저 외근 정보 업데이트
+// 유저 외근 정보 업데이트 ok
 router.put('/', updateUserOutsideData, checkUserOutsideData);
-//req.params.userId, req.body
+//req.body
 module.exports = router;

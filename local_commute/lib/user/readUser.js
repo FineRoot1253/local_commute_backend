@@ -4,11 +4,11 @@ const User = require("../../models").user_full_data;
  * [resource 서버 전용] 유저 데이터 조회
  */
 const readUser = async (req, res ,next) => {
-    const userId = req.params.userId||req.body.userId;
+    const email_addr = req.params.email_addr||req.body.email_addr;
 
     const userResult = await User.findOne({
         where : {
-            userId : userId
+            email_addr
         }
     });
     
@@ -24,7 +24,7 @@ const readUser = async (req, res ,next) => {
 
 const findUser = userId => User.findOne({
     where : {
-        userId : userId
+        email_addr    
     }
 });
 
