@@ -20,7 +20,7 @@ router.post('/register', createComp);
 //req.params.userId
 
 // 회사 정보 업데이트 ok
-router.put('/:compId', updateComp);
+router.put('/', updateComp);
 //req.params.userId
 
 

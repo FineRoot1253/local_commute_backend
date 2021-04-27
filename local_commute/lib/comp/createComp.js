@@ -6,17 +6,14 @@ const Comp = require("../../models").comp;
  */
 
 const createComp = async (req, res ,next) => {
-    const {
-        comp_name,
-        comp_admin_email_addr
-    } = req.body;
+    const comp_name = req.body.comp_name;
 
     let comp_Id = comp_name + ((+new Date).toString(36).slice(-12));
 
     const comp = await Comp.create({
         comp_Id,
         comp_name,
-        comp_admin_email_addr
+        comp_admin_email_addr : null
     });
 
     if(!comp){

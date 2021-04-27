@@ -1,6 +1,6 @@
 const Userlog = require("../../models").user_worktime_log;
 
-const createUserLog = async (req, res ,next) => {
+const createUserCommuteLog = async (req, res ,next) => {
 
     //data parsing
     let {
@@ -24,4 +24,4 @@ const createUserLog = async (req, res ,next) => {
     return res.send(result.dataValues);        
 }
 
-module.exports = createUserLog;
+module.exports = createUserCommuteLog;

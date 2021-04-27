@@ -23,6 +23,7 @@ app_auth.use(cors({origin: true,credentials: true}));
 app_auth.use(flash());
 let userRouter = require('./routes/user/index');
 let authRouter = require('./routes/auth/index');
+let compRouter = require('./routes/comp/index');
 
 app_auth.use(session({
   secret: '123123newzen',
@@ -40,6 +41,7 @@ app_auth.use(passport.session());
 
 app_auth.use('/auth',authRouter);
 app_auth.use('/user', userRouter);
+app_auth.use('/comp', compRouter);
 
 // catch 404 and forward to error handler
 app_auth.use(function(req, res, next) {

@@ -1,7 +1,7 @@
 var express = require("express");
 const readUser = require("../../lib/user/readUser").readUser;
-const readUserLogList = require('../../lib/user/readUserLogList').readUserLogList;
-const readUserLogData = require('../../lib/user/readUserLogData').readUserLogData;
+const readUserCommuteLogList = require('../../lib/user/readUserLogList').readUserCommuteLogList;
+const readUserCommuteLogData = require('../../lib/user/readUserLogData');
 const createUser = require("../../lib/user/createUser").createUser;
 const updateUser = require("../../lib/user/updateUser").updateUser;
 const deleteUser = require("../../lib/user/deleteUser").deleteUser;
@@ -32,11 +32,11 @@ router.get('/:email_addr', readUser);
 //req.params.userId
 
 // 유저 근태기록리스트 읽기 ok
-router.get('/getLogList/:email_addr&:startDate&:endDate', readUserLogList);
+router.get('/getUserCommuteLogList/:email_addr&:startDate&:endDate', readUserCommuteLogList);
 //req.params.userId
 
 // 유저 최신근태기록 읽기 ok
-router.get('/getUserLogData/:email_addr', readUserLogData);
+router.get('/getUserCommuteLogData/:email_addr', readUserCommuteLogData);
 //req.params.userId
 
 // 유저 생성 요청 ok

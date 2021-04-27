@@ -29,7 +29,7 @@ var porxyPort = normalizePort(process.env.PROXY_PORT || '6000');
  * Create Proxy server
  */
 http.createServer((req, res)=>{
-  if(req.url.startsWith('/auth')||req.url.startsWith('/user/emailOTPverify')||req.url.startsWith('/user/register')||req.url.startsWith('/user/verifyEmail')){
+  if(req.url.startsWith('/auth')||req.url.startsWith('/comp')||req.url.startsWith('/user/emailOTPverify')||req.url.startsWith('/user/register')||req.url.startsWith('/user/verifyEmail')){
     authServer.web(req, res);
   }
   else{

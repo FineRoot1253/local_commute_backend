@@ -4,7 +4,7 @@ const Userloglist = require("../../models").user_worktime_list;
 /**
  * [resource 서버 전용] 유저 데이터 조회
  */
-const readUserLogList = async (req, res ,next) => {
+const readUserCommuteLogList = async (req, res ,next) => {
     const user_email_addr = req.params.email_addr;
     const startDate = req.params.startDate;
     const endDate = req.params.endDate;
@@ -32,4 +32,4 @@ const findUser = email_addr => User.findOne({
     }
 });
 
-module.exports = {readUserLogList, findUser};
+module.exports = {readUserCommuteLogList, findUser};
