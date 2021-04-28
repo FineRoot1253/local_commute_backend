@@ -12,7 +12,9 @@ const createUser = async (req, res ,next) => {
         user_type,
         userName = req.body.userNm,
         userPwd,
-        state
+        state,
+        user_phone_number,
+        user_telephone_number
     } = req.body;
     let userPwd_after_encrypt = encrypt(userPwd);
     //Create
@@ -22,7 +24,8 @@ const createUser = async (req, res ,next) => {
         userName,
         userPwd : userPwd_after_encrypt,
         state,
-        comp_id : undefined
+        user_phone_number,
+        user_telephone_number
     });
     /**
      * TODO : find accessToken, need to create if not exists
