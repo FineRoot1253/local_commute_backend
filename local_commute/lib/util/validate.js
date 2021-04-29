@@ -23,8 +23,9 @@ validator.verifyACTK = async (tokenInfo, accessToken) => {
             email_addr : tokenInfo.email_addr
         }
     });
+    console.log("결과!",user);
 
-    return user.dataValues;
+    return user;
 }
 
 /**
@@ -70,8 +71,10 @@ validator.verifyTKs = async (accessToken, refreshToken) => {
  *  api 요청의 엑세스 토큰을 검증해 유저의 권한검증ß
  */
  validator.verifyLoggined = [
-     passport.authenticate('bearer'),
-     (req,res,next) =>{
+    // passport.authenticate('bearer',
+    // { passReqToCallback: true, failureRedirect: '/auth/login/token/failed', failureFlash: true }),
+    passport.authenticate('bearer',{ passReqToCallback: true, failureRedirect: '/auth/login/token/failed', failureFlash: true }),    
+    (req,res,next) =>{
          console.log(req.header);
          next();
      }

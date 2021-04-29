@@ -11,7 +11,7 @@ const updateUser = async (req, res ,next) => {
         let userId = (req.body.userId == "UNKNOWN") ? null : req.body.userId ;
         let user_phone_number = (req.body.phoneNumber == "UNKNOWN") ? null : req.body.phoneNumber;
         let user_telephone_number = (req.body.telephoneNumber == "UNKNOWN") ? null : req.body.telephoneNumber;
-        let user_type = (req.body.user_type == "UNKNOWN") ? 3 : req.body.user_type;
+        let user_type = req.body.user_type;
         
         console.log(comp_id);
     

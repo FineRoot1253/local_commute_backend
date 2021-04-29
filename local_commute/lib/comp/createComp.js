@@ -6,14 +6,14 @@ const Comp = require("../../models").comp;
  */
 
 const createComp = async (req, res ,next) => {
-    const comp_name = req.body.comp_name;
+    let {comp_name,comp_admin_email_addr} = req.body;
 
     let comp_Id = comp_name + ((+new Date).toString(36).slice(-12));
 
     const comp = await Comp.create({
         comp_Id,
         comp_name,
-        comp_admin_email_addr : null
+        comp_admin_email_addr
     });
 
     if(!comp){
@@ -21,7 +21,7 @@ const createComp = async (req, res ,next) => {
         return;
     }
 
-    return res.status(200).end();
+    return res.send(comp_Id).end();
 }
 
 module.exports = createComp;

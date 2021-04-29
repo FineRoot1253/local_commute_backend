@@ -6,6 +6,7 @@ const logger = require('morgan');
 const session = require('express-session');
 const passport= require('passport');
 const bodyParser= require('body-parser');
+const flash = require('connect-flash');
 const validator = require('./lib/util/validate');
 const cors = require('cors');
 const app = express();
@@ -37,16 +38,12 @@ app.use(session({
     maxAge : 3600000
   }
 }));
+app.use(flash());
 redisClient.on('error', function (err) {
   console.log('Error ' + err);
 });
 app.use(passport.initialize());
 app.use(passport.session());
-//let ranNum = (+new Date).toString(36);
-app.use('/',(req,res,next)=>{
-  console.log(req.headers);
-  next();
-});
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator.verifyLoggined);
 

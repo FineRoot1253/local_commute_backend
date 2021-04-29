@@ -40,17 +40,21 @@ passport.use(new BasicStrategy(async (email_addr, password, done) => {
  */
 passport.use(new BearerStrategy(async (accessToken, done) => {
     try {
-        console.log('토큰 권한 인증 검색');
-        let userResult;
+        console.log('토큰 권한 인증 검색',accessToken);
+        var userResult;
         const tokenInfo = await token.findOne(accessToken);
         console.log(`검증시작 : `);
         // console.dir(tokenInfo);
         userResult = await validate.verifyACTK(tokenInfo, accessToken);
-        console.log('토큰 인증 성공!');
-        done(null, userResult);
+        if(!userResult)  done(Error("USER NOT EXIST"), false, {message : "USER NOT EXIST"});
+        else{
+            console.log('토큰 인증 성공!');
+            done(null, userResult);
+        }
     } catch (err) {
+        console.log(err);
         let beforeSending = err.toString().split(':')[1].trim();
-        done(null, false, {
+        done(err, false, {
             message: beforeSending
         });
     }
@@ -136,7 +140,10 @@ const loginSuccess = async (req, res, next) => {
  * [authorization 서버 전용] Basic 로그인 실패시 경로
  */
 const loginFailed = (req, res, next) => {
-    return res.sendStatus(401);
+    console.log("플래쉬 확인 : ",req.session.flash);
+    var code = 401;
+    if(req.session.flash===undefined) code = 500;
+    return res.status(code).send();
 };
 
 /**
@@ -162,10 +169,20 @@ const tokenLoginSuccess = async (req, res, next) => {
  * [authorization 서버 전용] 토큰 로그인 실패시 경로
  */
 const tokenLoginFailed = (req, res, next) => {
+try{
+    console.log(`에러 메시지 전송 직전 파싱 직전 : ${req.session.flash}`);
     console.log(`에러 메시지 전송 직전 파싱 직전 : ${req.session.flash.error[0]}`);
     var dump = req.session.flash.error[0].split(',')[2].split('=')[1];
     let msg = dump.substring(1, dump.length - 1)
+
     return res.status(403).send(msg);
+}catch(e){
+    console.log(`에러 메시지 전송 직전 파싱 직전 : ${e}`);
+
+    return res.status(500).send();
+
+}
+
 };
 
 module.exports = { loginSuccess, loginFailed, refreshToken, logout, tokenLoginSuccess, tokenLoginFailed };
