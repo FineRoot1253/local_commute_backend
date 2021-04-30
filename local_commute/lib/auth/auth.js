@@ -40,7 +40,7 @@ passport.use(new BasicStrategy(async (email_addr, password, done) => {
  */
 passport.use(new BearerStrategy(async (accessToken, done) => {
     try {
-        console.log('토큰 권한 인증 검색',accessToken);
+        console.log('토큰 권한 인증 검색');
         var userResult;
         const tokenInfo = await token.findOne(accessToken);
         console.log(`검증시작 : `);
@@ -54,7 +54,7 @@ passport.use(new BearerStrategy(async (accessToken, done) => {
     } catch (err) {
         console.log(err);
         let beforeSending = err.toString().split(':')[1].trim();
-        done(err, false, {
+        done(null, false, {
             message: beforeSending
         });
     }

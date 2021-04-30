@@ -71,9 +71,9 @@ validator.verifyTKs = async (accessToken, refreshToken) => {
  *  api 요청의 엑세스 토큰을 검증해 유저의 권한검증ß
  */
  validator.verifyLoggined = [
-    // passport.authenticate('bearer',
+    passport.authenticate('bearer'),
     // { passReqToCallback: true, failureRedirect: '/auth/login/token/failed', failureFlash: true }),
-    passport.authenticate('bearer',{ passReqToCallback: true, failureRedirect: '/auth/login/token/failed', failureFlash: true }),    
+    //passport.authenticate('bearer',{ passReqToCallback: true, failureRedirect: '/auth/login/token/failed', failureFlash: true }),    
     (req,res,next) =>{
          console.log(req.header);
          next();
