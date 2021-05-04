@@ -9,7 +9,7 @@ const sendEmail = async (req, res, next) => {
 
     let transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
-            port: 25,
+            port: 456,
             secure: true,
             service: 'Gmail',
             auth: {
@@ -27,6 +27,9 @@ const sendEmail = async (req, res, next) => {
             subject: '[뉴젠 근태 관리]가입 확인 메일 : ',
             html: "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;'>" + otp +"</h1>"
         };
+        console.log(mailOptions);
+
+
 
         transporter.sendMail(
             mailOptions, (err, info)=>{

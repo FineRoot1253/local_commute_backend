@@ -38,7 +38,7 @@ const checkUserValid = async (req, res ,next) => {
     req.session.otp = nanoid();
     req.session.email_addr = email_addr;
     console.log(req.session.otp);
-    console.log(req.session.email_addr," : 세션 내용");
+    console.log(req.session.email_addr);
     next();
 
 }
