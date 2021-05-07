@@ -27,6 +27,10 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        phone_uuid:{
+            type: DataTypes.STRING(100),
+            allowNull: true
+        },
         user_profile_photo:{
             type: DataTypes.STRING(100),
             allowNull: true,

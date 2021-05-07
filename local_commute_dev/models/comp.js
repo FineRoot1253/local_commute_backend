@@ -22,6 +22,10 @@ module.exports = function(sequelize, DataTypes){
             allowNull: true,
             defaultValue:'0'
         },
+        comp_bssid:{
+            type: DataTypes.STRING(100),
+            allowNull: true,
+        },
     },
     {
         tableName : 'comp',

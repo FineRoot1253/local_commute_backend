@@ -10,7 +10,8 @@ const updateComp = async (req, res ,next) => {
         comp_Id,
         comp_name,
         comp_admin_email_addr,
-        comp_state
+        comp_state,
+        comp_bssid
     } = req.body;
 
 
@@ -18,7 +19,8 @@ const updateComp = async (req, res ,next) => {
         comp_Id,
         comp_name,
         comp_admin_email_addr,
-        comp_state
+        comp_state,
+        comp_bssid
     },
     { where: {comp_Id},
     returning : true
