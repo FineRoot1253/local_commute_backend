@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb
+    container_name: local_commute_server_mariadb_v0.0.1
+    platform: linux/amd64
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PWD}"
+      MYSQL_DATABASE: "${DB_SCHEMA_NAME}"
+      MYSQL_USER: "${DB_HOST_NAME}"
+      MYSQL_PASSWORD: "${DB_PWD}"
+    # volumes: 
+    #     - ./init:/docker-entrypoint-initdb.d
+
+  redis:
+    image: redis:latest
+    container_name: local_commute_server_redis_v0.0.1
+    restart: always
+    platform: linux/amd64
+    user: root
+    networks:
+      - chat_server_network
+    volumes:
+      - ./volume/redis/data/:/data
+      # - /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static
+    command: redis-server --save 60 1 --loglevel warning
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    depends_on:
+      - haproxy_amqp_load_balancer
+
+  local_commute_server:
+    image: gjhong1129/examples:local_commute_resource_backend_v0.0.1
+    container_name: local_commute_resource_backend_v0.0.1
+    hostname: local_commute_server
+
+networks:
+  chat_server_network:
+    driver: bridge    
+
