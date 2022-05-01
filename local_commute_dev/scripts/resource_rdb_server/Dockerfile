@@ -1,5 +1,7 @@
-FROM mariadb
+FROM mariadb:latest
 ARG BUILDPLATFORM
 RUN echo $BUILDPLATFORM
-ADD app.js /app.js
-ENTRYPOINT ["node", "app.js"]
+
+ADD ./init.sql /docker-entrypoint-initdb.d/
+
+VOLUME [ "/var/lib/mysql" ]

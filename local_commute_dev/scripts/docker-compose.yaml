@@ -1,43 +1,60 @@
 version: '3'
 
 services:
-  db:
-    image: mariadb
-    container_name: local_commute_server_mariadb_v0.0.1
+  mariadb:
+    image: gjhong1129/examples:local_commute_server_mariadb_v0.0.3
+    container_name: local_commute_server_mariadb_v0.0.4
+    hostname: mariadb
     platform: linux/amd64
+    user: root
     restart: always
+    networks:
+      - chat_server_network
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_PWD}"
       MYSQL_DATABASE: "${DB_SCHEMA_NAME}"
-      MYSQL_USER: "${DB_HOST_NAME}"
+      # MYSQL_USER: "${DB_HOST_NAME}"
       MYSQL_PASSWORD: "${DB_PWD}"
-    # volumes: 
-    #     - ./init:/docker-entrypoint-initdb.d
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes: 
+        - ./volume/mariadb/data:/var/lib/mysql:rw
+        - ./init/init.sql:/docker-entrypoint-initdb.d/schema.sql:ro
 
   redis:
     image: redis:latest
+    hostname: redis
     container_name: local_commute_server_redis_v0.0.1
     restart: always
     platform: linux/amd64
     user: root
+    expose:
+      - "${REDIS_PORT}"
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
     networks:
       - chat_server_network
     volumes:
       - ./volume/redis/data/:/data
       # - /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static
-    command: redis-server --save 60 1 --loglevel warning
+    command: redis-server --port 6379 --save 60 1 --loglevel warning
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
       interval: 1s
       timeout: 3s
       retries: 30
-    depends_on:
-      - haproxy_amqp_load_balancer
 
   local_commute_server:
-    image: gjhong1129/examples:local_commute_resource_backend_v0.0.1
-    container_name: local_commute_resource_backend_v0.0.1
+    image: gjhong1129/examples:local_commute_resource_backend_v0.0.11
+    container_name: local_commute_resource_backend_v0.0.11
     hostname: local_commute_server
+    networks:
+      - chat_server_network
+    ports:
+      - "6000:6000"
 
 networks:
   chat_server_network:
