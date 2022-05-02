@@ -1,4 +1,4 @@
--- MariaDB dump 10.19  Distrib 10.7.3-MariaDB, for osx10.17 (x86_64)
+-- MariaDB dump 10.19  Distrib 10.7.3-MariaDB, for osx10.17 (arm64)
 --
 -- Host: localhost    Database: commute_manager
 -- ------------------------------------------------------
@@ -39,8 +39,6 @@ CREATE TABLE `comp` (
 
 LOCK TABLES `comp` WRITE;
 /*!40000 ALTER TABLE `comp` DISABLE KEYS */;
-INSERT INTO `comp` VALUES
-('asdf','UNTITLED',0,NULL);
 /*!40000 ALTER TABLE `comp` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,9 +126,6 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES
-('gjhong1129@gmail.com',0,'gjhong1129','홍준근','11111111',0,NULL,NULL,'asdf',NULL),
-('gjhong1129@naver.com',0,'gjhong11291','네이버준근','11111111',0,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,12 +207,6 @@ CREATE TABLE `user_worktime_log` (
 
 LOCK TABLES `user_worktime_log` WRITE;
 /*!40000 ALTER TABLE `user_worktime_log` DISABLE KEYS */;
-INSERT INTO `user_worktime_log` VALUES
-(1,'gjhong1129@naver.com','2022-04-30 23:53:42',1),
-(2,'gjhong1129@gmail.com','2022-04-30 23:53:53',1),
-(3,'gjhong1129@gmail.com','2022-04-30 23:54:07',0),
-(4,'gjhong1129@naver.com','2022-04-30 23:54:07',0),
-(5,'gjhong1129@gmail.com','2022-04-30 23:58:48',1);
 /*!40000 ALTER TABLE `user_worktime_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,4 +315,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-01 21:12:23
+-- Dump completed on 2022-05-02 12:20:06

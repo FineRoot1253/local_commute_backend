@@ -2,7 +2,7 @@ version: '3'
 
 services:
   mariadb:
-    image: gjhong1129/examples:local_commute_server_mariadb_v0.0.3
+    image: gjhong1129/examples:local_commute_server_mariadb_v0.0.4
     container_name: local_commute_server_mariadb_v0.0.4
     hostname: mariadb
     platform: linux/amd64
@@ -48,15 +48,19 @@ services:
       retries: 30
 
   local_commute_server:
-    image: gjhong1129/examples:local_commute_resource_backend_v0.0.11
-    container_name: local_commute_resource_backend_v0.0.11
+    image: gjhong1129/examples:local_commute_resource_backend_v0.0.12
+    container_name: local_commute_resource_backend_v0.0.12
     hostname: local_commute_server
     networks:
+      - default
       - chat_server_network
     ports:
       - "6000:6000"
 
 networks:
+  default:
+    external:
+      name: go-talk-net
   chat_server_network:
     driver: bridge    
 
